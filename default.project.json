@@ -1,0 +1,42 @@
+{
+  "name": "CardGame",
+  "tree": {
+    "$className": "DataModel",
+
+    "ReplicatedStorage": {
+      "$path" : "src/Client/ReplicatedStorage"
+    },
+
+    "ReplicatedFirst" : {
+      "$path" : "src/Client/ReplicatedFirst"
+    },
+
+    "StarterPlayer" : {
+      "$path" : "src/Client/StarterPlayer",
+      "StarterCharacterScripts" : {
+        "$path" : "src/Client/StarterCharacterScripts"
+      },
+      "StarterPlayerScripts" : {
+        "$path" : "src/Client/StarterPlayerScripts"
+      }
+    },
+
+    "ServerScriptService": {
+      "$path" : "src/Server/ServerScriptService"
+    },
+
+    "ServerStorage" : {
+      "$path" : "src/Server/ServerStorage"
+    },
+
+    "UnitTests": {
+      "$className" : "Folder",
+      "$path": "src/UnitTests"
+    },
+
+    "Shared": {
+      "$className" : "Folder",
+      "$path": "src/shared"
+    }
+  }
+}
