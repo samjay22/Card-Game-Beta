@@ -13,6 +13,7 @@ end
 
 --Roblox does not allow us to write to the globals, so, we have to use _G or shared.
 local sharedMemorySpace = {__index = _containerMethods}
-local sharedMetatable = setmetatable(_G, sharedMemorySpace)
-setmetatable(shared, {__index = sharedMetatable})
+setmetatable(shared, sharedMemorySpace)
+setmetatable(_G, sharedMemorySpace)
+shared.Loaded = true
 return _containerMethods

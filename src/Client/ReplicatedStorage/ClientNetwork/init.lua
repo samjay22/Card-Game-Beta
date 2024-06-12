@@ -18,7 +18,7 @@ function ClientNetwork.PostAsync(endpont : string, dataHandler : (any...) -> (an
 
     ClientResponse.RegisterResponseHandler(requestID, dataHandler)
     game.ReplicatedStorage.ClientNetwork.RemoteEvent:FireServer(endpont, payload)
-    local timeout : number = os.clock() + 5
+    local timeout : number = os.clock() + 15
     --Wait until response or timeout
     repeat task.wait() until shared[data.requestID] or timeout < os.clock()
 

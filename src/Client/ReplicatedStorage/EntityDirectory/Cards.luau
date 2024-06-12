@@ -17,7 +17,6 @@ return {
 
         MaxHeath = 25,
 
-
         --Display Info
         Type = "Card",
         ImageUrl = "",

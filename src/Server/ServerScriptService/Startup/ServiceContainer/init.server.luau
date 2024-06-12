@@ -7,6 +7,4 @@ for _, module in ipairs(script:GetChildren()) do
     end
 end
 
-
-shared.Inject("")
-
+warn("Loaded Server Services")

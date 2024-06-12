@@ -7,7 +7,7 @@ export type RollService = {
     GetPlayerDeck : (player : Player) -> (),
 }
 
-type DataServiceType = {
+export type PlayerDataService = {
     LoadPlayerData : (player : Player) -> PlayerDataType.PlayerDataType,
     GetPlayerData : (userId : number) -> PlayerDataType.PlayerDataType,
     GetPlayerCards : (userId : number) -> PlayerDataType.PlayerDeck,

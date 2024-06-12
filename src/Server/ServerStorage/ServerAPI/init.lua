@@ -1,8 +1,8 @@
+--!strict
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
-
---!strict
---!strict
 local HttpService : HttpService = game:GetService("HttpService")
+
+repeat task.wait() until shared.Loaded
 
 local DistributedQueue = require(game.ServerStorage.UtilityModules.DistributedQueue)
 

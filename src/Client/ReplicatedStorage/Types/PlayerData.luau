@@ -2,8 +2,8 @@
 local CardType = require(game.ReplicatedStorage.Types.Card)
 
 export type PlayerDeck = {
-    CardInventory : {{Card : CardType.Card, Quantity : number, SlotNumber : string}},
-    CardHand : {CardType.Card},
+    CardInventory : {{CardId : string, SlotNumber : string}},
+    CardHand : {{CardId : string, SlotNumber : string}},
 }
 
 export type PlayerDataType = {

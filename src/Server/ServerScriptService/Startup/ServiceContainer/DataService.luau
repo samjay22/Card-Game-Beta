@@ -9,15 +9,21 @@ local Service = {}
 
 function LoadPlayerCards(player : Player, data)
     local cardStoreForPlayer : DataStore = DataStoreService:GetDataStore(`Cards_{player.UserId}`)    
-    local playerCards : PlayerStats.PlayerDeck = cardStoreForPlayer:GetAsync("Data_V1")
+    local playerCards : PlayerStats.PlayerDeck = cardStoreForPlayer:GetAsync("Data_V3")
     if not playerCards then
         playerCards = {
-            CardInventory = {},
-            CardHand = {}
+            CardInventory = {{
+                CardId = "387328f-0972-4ff9-8c81-f0c6d0e1zg04",
+                SlotNumber = "1",
+            }},
+            CardHand = {
+                {CardId = "387328f-0972-4ff9-8c81-f0c6d0e1zg04",
+                SlotNumber = "1"},
+            }
         }
 
         -- Save the card data
-        cardStoreForPlayer:SetAsync("Data_V1", playerCards)
+        --cardStoreForPlayer:SetAsync("Data_V3", playerCards)
     end
 
     data.CardData = playerCards
@@ -25,7 +31,7 @@ end
 
 function LoadPlayerStats(player : Player, data)
     local statsStoreForPlayer : DataStore = DataStoreService:GetDataStore(`Stats_{player.UserId}`)    
-    local playerStats : PlayerStats.PlayerStats = statsStoreForPlayer:GetAsync("Data_V1")
+    local playerStats : PlayerStats.PlayerStats = statsStoreForPlayer:GetAsync("Data_V3")
     if not playerStats then
         playerStats = {
             PVE_Stats = {
@@ -64,7 +70,7 @@ function LoadPlayerStats(player : Player, data)
             }
         }
         -- Save the stats data
-        statsStoreForPlayer:SetAsync("Data_V1", playerStats)
+        --statsStoreForPlayer:SetAsync("Data_V3", playerStats)
     end
 
     data.PlayerStats = playerStats
@@ -83,6 +89,7 @@ function Service.LoadPlayerData(player : Player)
 
     table.insert(_DataCache, Data)
 
+    warn("Loaded player data for " .. player.Name)
     return Data
 end
 
