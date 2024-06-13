@@ -16,36 +16,29 @@ function Service.RollCard(player : Player)
 
     --Package rule
         function(value : CardType.Card) : cardData
-        
             return {
                 Probability = value.Probability,
                 Card = value
             }
         end)
 
-    local rand = math.random()
-
     -- Sort the card probabilities in descending order
     table.sort(cardProbabilities, function(a, b) return a.Probability > b.Probability end)
-    
+        
+    local rand = math.random()
     local selectedCard : CardType.Card? = nil
-    -- Initialize the cumulative probability
-    local cumulativeProbability = 0
 
-    -- Loop through the card probabilities
-    for i, cardProbability in ipairs(cardProbabilities) do
-        -- Add the current card's probability to the cumulative probability
-        cumulativeProbability = cumulativeProbability + cardProbability.Probability
-
-        -- If the random number is less than the cumulative probability, return the current card
-        if rand < cumulativeProbability then
-            selectedCard = cardProbability.Card
+    for _, cardData in ipairs(cardProbabilities) do
+        if rand < cardData.Probability then
+            selectedCard = cardData.Card
+            break
         end
+        rand -= cardData.Probability
     end
 
     -- If no card is selected (which should not happen if the probabilities are correctly defined), return nil
     if not selectedCard then selectedCard = cardProbabilities[math.random(#cardProbabilities)].Card end
-
+    
     return selectedCard
 end
 

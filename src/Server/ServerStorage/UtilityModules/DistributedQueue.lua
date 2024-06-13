@@ -11,11 +11,12 @@ end
 
 local function AddQueue()
     local index : number = #_ActiveQueues + 1
-    _ActiveQueues[index] = {}
+    local tableRef = {}
+    _ActiveQueues[index] = tableRef
     GlobalUpdateService.AddGlobalUpdate(function(dt : number)
-        while #_ActiveQueues[index] > 0 do
-            _ActiveQueues[index][1](dt)
-            table.remove(_ActiveQueues[index], 1)
+        local item = table.remove(tableRef, 1)
+        if item then
+            item(dt)
         end
     end)
 end

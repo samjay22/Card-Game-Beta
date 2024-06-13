@@ -20,14 +20,14 @@ function ClientNetwork.PostAsync(endpont : string, dataHandler : (any...) -> (an
     game.ReplicatedStorage.ClientNetwork.RemoteEvent:FireServer(endpont, payload)
     local timeout : number = os.clock() + 15
     --Wait until response or timeout
-    repeat task.wait() until shared[data.requestID] or timeout < os.clock()
+    repeat task.wait() until shared[payload.requestID] or timeout < os.clock()
 
     --Automaticlly release memory after a few seconds
     task.delay(5, function()
-        shared[data.requestID] = nil
+        shared[payload.requestID] = nil
     end)
     
-    return shared[data.requestID]
+    return shared[payload.requestID]
 end
 
 function ClientNetwork.FireServer(endpont : string, data : any)

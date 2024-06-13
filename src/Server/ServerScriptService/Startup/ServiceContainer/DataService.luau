@@ -12,13 +12,17 @@ function LoadPlayerCards(player : Player, data)
     local playerCards : PlayerStats.PlayerDeck = cardStoreForPlayer:GetAsync("Data_V3")
     if not playerCards then
         playerCards = {
-            CardInventory = {{
-                CardId = "387328f-0972-4ff9-8c81-f0c6d0e1zg04",
-                SlotNumber = "1",
-            }},
+            CardInventory = {
+                {
+                    CardId = "c387328f-0972-4ff9-8c81-f0c6d0e1zg04",
+                    SlotNumber = "1",
+                }
+            },
             CardHand = {
-                {CardId = "387328f-0972-4ff9-8c81-f0c6d0e1zg04",
-                SlotNumber = "1"},
+                {
+                    CardId = "c387328f-0972-4ff9-8c81-f0c6d0e1zg04",
+                    SlotNumber = "1"
+            },
             }
         }
 

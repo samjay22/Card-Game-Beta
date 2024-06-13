@@ -7,4 +7,8 @@ end)
 
 task.wait(5)
 
-require(game.ReplicatedStorage.ClientNetwork).PostAsync("GetCardsForPlayer", function(data) warn(data) end, {game.Players.LocalPlayer})
+require(game.ReplicatedStorage.ClientNetwork).PostAsync("GetCardsForPlayer", 
+function(data) 
+    warn(data) 
+    return data 
+end, {game.Players.LocalPlayer})

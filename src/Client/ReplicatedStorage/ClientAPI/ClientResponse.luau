@@ -10,6 +10,10 @@ local _ClientResponseHandlers : {[string] : (any) -> ()} = {}
 
 function ResponseAsync(data : Types.ResponsePayload)
     if _ClientResponseHandlers[data.requestID] then
+        shared[data.requestID] = _ClientResponseHandlers[data.requestID](data.data) 
+            _ClientResponseHandlers[data.requestID] = nil
+        if true then return  end
+
         table.insert(_ClientRequestQueue, function() 
             shared[data.requestID] = _ClientResponseHandlers[data.requestID](data.data) 
             _ClientResponseHandlers[data.requestID] = nil

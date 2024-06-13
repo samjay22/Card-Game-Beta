@@ -17,11 +17,12 @@ function Controller.GetCardsForPlayer(player : Player)
     local Mux = {}
     local playerCards : PlayerDataTypes.PlayerDeck = PlayerService.GetPlayerCards(player.UserId)
     
-    task.spawn(function()
+    local cardHand = coroutine.create(function() 
+
         --logic to get all of the card data in once struct
         for _, cardMetadata in ipairs(playerCards.CardHand) do
             local card : CardTypes.Card? = EntityDirectory.GetEntityById(cardMetadata.CardId)
-            if not card then return end
+            if not card then continue end
             table.insert(cardPackage.Hand, {
                 Id = card.Id,
                 Rarity = card.Rarity,
@@ -50,11 +51,16 @@ function Controller.GetCardsForPlayer(player : Player)
         table.insert(Mux, 1)
     end)
 
-     task.spawn(function()
+    local success, response = pcall(coroutine.resume, cardHand)
+    if not success then
+        warn(response) 
+    end
+
+     local cardInventory = coroutine.create(function()
             --logic to get all of the card data in once struct
         for _, invMetadata in ipairs(playerCards.CardInventory) do
             local card : CardTypes.Card? = EntityDirectory.GetEntityById(invMetadata.CardId)
-            if not card then return end
+            if not card then continue end
             table.insert(cardPackage.Inventory, {
                 Id = card.Id,
                 Rarity = card.Rarity,
@@ -78,7 +84,6 @@ function Controller.GetCardsForPlayer(player : Player)
                 TextDisplayColor = card.TextDisplayColor,
                 Description = card.Description,
                 Slot = invMetadata.SlotNumber,
-                Quantity = invMetadata.Quantity
             })
         end
 
@@ -86,9 +91,31 @@ function Controller.GetCardsForPlayer(player : Player)
         table.insert(Mux, 2)
      end)
 
+    success, response = pcall(coroutine.resume, cardInventory)
+    if not success then
+        warn(response) 
+    end
+
     repeat task.wait() until #Mux == 2
 
     return cardPackage
+end
+
+function Controller.RollCard(player : Player)
+    local rollService : ServerServiceTypes.RollService = shared.Inject("RollService")
+    local card : CardTypes.Card = rollService.RollCard(player)
+    local playerCards : PlayerDataTypes.PlayerDeck = PlayerService.GetPlayerCards(player.UserId)
+    local playerStats : PlayerDataTypes.PlayerStats = PlayerService.GetPlayerStats(player.UserId)
+    
+    playerStats.General_Stats.TotalCardsDrawn += 1
+    table.insert(playerCards.CardInventory, {
+        CardId = card.Id,
+        SlotNumber = tostring(#playerCards.CardInventory + 1)
+    })
+
+    warn(playerCards.CardInventory, playerStats.General_Stats.TotalCardsDrawn)
+
+    return card
 end
 
 return Controller
