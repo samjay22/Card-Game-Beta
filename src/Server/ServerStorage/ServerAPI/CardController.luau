@@ -5,6 +5,8 @@ local ServerServiceTypes = require(game.ReplicatedStorage.Types.ServerServices)
 local EntityDirectory = require(game.ReplicatedStorage.EntityDirectory)
 
 local PlayerService : ServerServiceTypes.PlayerDataService = shared.Inject("DataService")
+local TopicPoolingService : ServerServiceTypes.TopicPoolingService = shared.Inject("TopicPoolingService")
+local HttpService : HttpService = shared.Inject("HttpService")
 
 local Controller = {}
 
@@ -102,8 +104,13 @@ function Controller.GetCardsForPlayer(player : Player)
 end
 
 function Controller.RollCard(player : Player)
-    local rollService : ServerServiceTypes.RollService = shared.Inject("RollService")
-    local card : CardTypes.Card = rollService.RollCard(player)
+    local card : CardTypes.Card = TopicPoolingService.PublishToTopic("RollService", {
+        RequestID = HttpService:GenerateGUID(),
+        EventType = "RollCard",
+        UserId = player.UserId,
+        Timestamp = os.time()
+    })
+
     local playerCards : PlayerDataTypes.PlayerDeck = PlayerService.GetPlayerCards(player.UserId)
     local playerStats : PlayerDataTypes.PlayerStats = PlayerService.GetPlayerStats(player.UserId)
     
@@ -112,9 +119,7 @@ function Controller.RollCard(player : Player)
         CardId = card.Id,
         SlotNumber = tostring(#playerCards.CardInventory + 1)
     })
-
-    warn(playerCards.CardInventory, playerStats.General_Stats.TotalCardsDrawn)
-
+    
     return card
 end
 

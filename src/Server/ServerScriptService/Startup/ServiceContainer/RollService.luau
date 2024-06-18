@@ -5,7 +5,7 @@ local CardDirectory = require(game.ReplicatedStorage.EntityDirectory)
 
 local Service = {}
 
-function Service.RollCard(player : Player)
+function Service.RollCard(player : Player, metadata : any)
     -- Generate a random number between 0 and 1
     type cardData = {Probability : number, Card : CardType.Card} 
     local cardProbabilities : {cardData} = CardDirectory.AggregateByProperty(

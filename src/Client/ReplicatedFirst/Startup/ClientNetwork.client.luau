@@ -5,10 +5,13 @@ game.ReplicatedStorage:WaitForChild("ClientNetwork"):WaitForChild("RemoteEvent")
     require(ReplicatedStorage.ClientAPI).ProcessRequest(endpoint, data)
 end)
 
+require(game.ReplicatedStorage.ServiceContainer)
+
+
 task.wait(5)
 
 require(game.ReplicatedStorage.ClientNetwork).PostAsync("GetCardsForPlayer", 
 function(data) 
     warn(data) 
     return data 
-end, {game.Players.LocalPlayer})
+end)

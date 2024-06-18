@@ -7,4 +7,7 @@ for _, module in ipairs(script:GetChildren()) do
     end
 end
 
+--Register topic pool for services
+require(game.ServerStorage.ServerTopics)
+
 warn("Loaded Server Services")

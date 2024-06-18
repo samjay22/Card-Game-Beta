@@ -1,6 +1,4 @@
 --!strict
-local HttpService : HttpService = game:GetService("HttpService")
-
 local GlobalUpdateService = require(game.ReplicatedStorage.Utility.GlobalUpdateService)
 local Types = require(game.ReplicatedStorage.ClientNetwork.Types)
 
@@ -10,10 +8,6 @@ local _ClientResponseHandlers : {[string] : (any) -> ()} = {}
 
 function ResponseAsync(data : Types.ResponsePayload)
     if _ClientResponseHandlers[data.requestID] then
-        shared[data.requestID] = _ClientResponseHandlers[data.requestID](data.data) 
-            _ClientResponseHandlers[data.requestID] = nil
-        if true then return  end
-
         table.insert(_ClientRequestQueue, function() 
             shared[data.requestID] = _ClientResponseHandlers[data.requestID](data.data) 
             _ClientResponseHandlers[data.requestID] = nil

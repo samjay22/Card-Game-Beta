@@ -1,7 +1,5 @@
 --!strict
-
-local DataStoreService : DataStoreService = game:GetService("DataStoreService")
-
+local DataStoreService : DataStoreService = shared.Inject("DataStoreService")
 local PlayerStats = require(game.ReplicatedStorage.Types.PlayerData)
 
 local _DataCache : {PlayerStats.PlayerDataType} = {}
