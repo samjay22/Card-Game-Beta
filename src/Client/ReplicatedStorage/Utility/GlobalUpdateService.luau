@@ -10,9 +10,13 @@ end
 
 local function OnGlobalUpdate(dt : number)
     for _, delegate in ipairs(_globalUpdateDelegates) do
-        delegate(dt)
+        task.spawn(function(dt)
+            task.synchronize()
+            delegate(dt)
+        end, dt)
     end
 end
 
-RunService.Heartbeat:Connect(OnGlobalUpdate)
+RunService.Heartbeat:ConnectParallel(OnGlobalUpdate)
+
 return GlobalUpdateService

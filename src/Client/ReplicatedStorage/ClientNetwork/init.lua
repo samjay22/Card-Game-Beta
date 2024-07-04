@@ -16,18 +16,10 @@ function ClientNetwork.PostAsync(endpont : string, dataHandler : (any...) -> (an
         data = data
     }
 
-    ClientResponse.RegisterResponseHandler(requestID, dataHandler)
+    local promise : BindableEvent = ClientResponse.RegisterResponseHandler(requestID, dataHandler)
     game.ReplicatedStorage.ClientNetwork.RemoteEvent:FireServer(endpont, payload)
-    local timeout : number = os.clock() + 5
     --Wait until response or timeout
-    repeat task.wait() until shared[data.requestID] or timeout < os.clock()
-
-    --Automaticlly release memory after a few seconds
-    task.delay(5, function()
-        shared[data.requestID] = nil
-    end)
-    
-    return shared[data.requestID]
+    promise.Event:Wait()
 end
 
 function ClientNetwork.FireServer(endpont : string, data : any)
@@ -35,6 +27,7 @@ function ClientNetwork.FireServer(endpont : string, data : any)
         requestID = HttpService:GenerateGUID(false),
         data = data
     }
+    
     game.ReplicatedStorage.ClientNetwork.RemoteEvent:FireServer(endpont, payload)
 end
 

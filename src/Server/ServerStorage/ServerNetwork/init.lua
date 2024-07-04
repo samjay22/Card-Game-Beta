@@ -4,7 +4,6 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local Types = require(game.ReplicatedStorage.ClientNetwork.Types)
 
-
 local ServerNetwork = {}
 
 function ServerNetwork.FireClient(endpont : string, data : any)

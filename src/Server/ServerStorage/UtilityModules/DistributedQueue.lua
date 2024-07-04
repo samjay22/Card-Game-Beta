@@ -6,21 +6,23 @@ local module = {}
 
 function module.ProcessRequest(delegate : (dt : number) -> ())
     --load bal randomly
-    table.insert(_ActiveQueues[math.random(#_ActiveQueues)], delegate) 
+    local event : BindableEvent = shared.NewInstance("BindableEvent", 30)
+    event.Event:Once(delegate)
+    table.insert(_ActiveQueues[math.random(#_ActiveQueues)], event) 
 end
 
 local function AddQueue()
     local index : number = #_ActiveQueues + 1
     _ActiveQueues[index] = {}
     GlobalUpdateService.AddGlobalUpdate(function(dt : number)
-        while #_ActiveQueues[index] > 0 do
-            _ActiveQueues[index][1](dt)
-            table.remove(_ActiveQueues[index], 1)
+        local event = table.remove(_ActiveQueues[index], 1)
+        if event then
+            event:Fire(dt)
         end
     end)
 end
 
-for i = 1, 5 do
+for i = 1, 15 do
     AddQueue()
 end
 

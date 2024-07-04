@@ -1,0 +1,68 @@
+--!strict
+local DamageType = require(game.ReplicatedStorage.Types.DamageType)
+
+return {
+    {
+        Id = "c387328f-0972-4zz9-9881-f0c6d0e1zg04",
+        Description = "Inflicts physical damage to the target.",
+        ImageUrl = "rbxassetid://1234567890",
+        SystemName = "PHYSICAL",
+        DisplayName = "Physical",
+        TextDisplayColor = Color3.fromRGB(255, 0, 0),
+        Type = "Damage",
+    },
+    {
+        Id = "3f5a2c7d-8e6b-4aa1-9881-f0c6d0e1zg05",
+        Description = "Inflicts ice damage to the target.",
+        ImageUrl = "rbxassetid://0987654321",
+        SystemName = "ICE",
+        DisplayName = "Ice",
+        TextDisplayColor = Color3.fromRGB(0, 128, 255),
+        Type = "Damage",
+    },
+    {
+        Id = "6d8e0a9b-2c3f-4bb2-9881-f0c6d0e1zg06",
+        Description = "Inflicts fire damage to the target.",
+        ImageUrl = "rbxassetid://1357902468",
+        SystemName = "FIRE",
+        DisplayName = "Fire",
+        TextDisplayColor = Color3.fromRGB(255, 69, 0),
+        Type = "Damage",
+    },
+    {
+        Id = "1b4f3e2d-5a6c-8cc9-9881-f0c6d0e1zg07",
+        Description = "Inflicts water damage to the target.",
+        ImageUrl = "rbxassetid://9876543210",
+        SystemName = "WATER",
+        DisplayName = "Water",
+        TextDisplayColor = Color3.fromRGB(30, 144, 255),
+        Type = "Damage",
+    },
+    {
+        Id = "9c8b7a6d-0e1f-3d4c-9881-f0c6d0e1zg08",
+        Description = "Inflicts earth damage to the target.",
+        ImageUrl = "rbxassetid://2468013579",
+        SystemName = "EARTH",
+        DisplayName = "Earth",
+        TextDisplayColor = Color3.fromRGB(139, 69, 19),
+        Type = "Damage",
+    },
+    {
+        Id = "0e3d4c5b-8a9f-6b7c-9881-f0c6d0e1zg09",
+        Description = "Inflicts toxic damage to the target.",
+        ImageUrl = "rbxassetid://0123456789",
+        SystemName = "TOXIC",
+        DisplayName = "Toxic",
+        TextDisplayColor = Color3.fromRGB(128, 0, 128),
+        Type = "Damage",
+    },
+    {
+        Id = "7a6b5c4d-2f1e-9a8b-9881-f0c6d0e1zg10",
+        Description = "Inflicts gas damage to the target.",
+        ImageUrl = "rbxassetid://9876543210",
+        SystemName = "GAS",
+        DisplayName = "Gas",
+        TextDisplayColor = Color3.fromRGB(255, 255, 0),
+        Type = "Damage",
+    },
+} :: {DamageType.DamageType}
